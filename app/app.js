@@ -1,7 +1,7 @@
 angular.module('myApp', []).
 	directive('editable', function(){
 		return {
-
+			
 
 
 
