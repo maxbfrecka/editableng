@@ -1,14 +1,50 @@
-angular.module('myApp', []).
-	directive('editable', function(){
+angular.module('myApp', [])
+	.controller('myController', ['$scope', function($scope){
+		console.log('does editbox say anything yet?')
+	}])
+
+	.directive('makeEditable', function(){
 		return {
-			
-
-
-
+			templateUrl: 'edit.html',
+			restrict: 'E',
+			transclude: true,
+			scope: true,
+			link: function(scope, element, attrs){
+				this.editingStatus = false;
+        this.buttonText = 'edit!';
+        console.log("editbox should say 'edit'")
+        scope.toggleEdit = function(){
+          if(this.editingStatus == false){
+            this.editingStatus = true;
+            this.buttonText = 'save!';
+            element.spellcheck = true;
+          } else {
+            this.editingStatus = false;
+            this.buttonText = 'edit!';
+            element.spellcheck = false;
+          }
+				}
+			}
 		}
+	})
+	
+	
+
+/* how can I make sure that the button loads in on time? */
+/* how can I make the spellcheck part change? */
 
 
-	});
+
+
+
+
+
+
+
+
+
+
+/*
 
 	directive('megaVideo', function() {
 		return {
@@ -59,4 +95,4 @@ angular.module('myApp', []).
 			},
 
         }
-    });
+    });*/
