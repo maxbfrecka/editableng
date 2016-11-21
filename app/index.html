@@ -7,16 +7,18 @@
 	<link rel="stylesheet" href="./style.css">
 </head>
 
-<body ng-controller="myController" spellcheck="false">
+<body ng-controller="myController">
 	
 	<h1>Editable</h1>
 
 	<make-editable class="editbox">
 	<h1>Edit Me!</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<p spellcheck="{{spellcheck}}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	</make-editable>
 
-	<!-- how would I access the "spellcheck" variable in the body? need to combine controller with directives -->
+	<h2> current spellcheck setting: {{spellcheck}}</h2>
+
+	<!-- spellcheck is working but not changing page -->
 
 	<script src="bower_components/angular/angular.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>

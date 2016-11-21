@@ -1,32 +1,50 @@
 angular.module('myApp', [])
-	.controller('myController', ['$scope', function($scope){
-		console.log('does editbox say anything yet?')
-	}])
+	.factory('spellcheck', function(){
+		var dataFactory = {
+			spellcheck: false
+		}
+		dataFactory.toggleSpellcheck = function(){
+			dataFactory.spellcheck = !dataFactory.spellcheck;
+		}
+		return dataFactory;
+	})
 
-	.directive('makeEditable', function(){
+	.controller('myController', ['$scope', 'spellcheck', function($scope, spellcheck){
+		$scope.spellcheck=spellcheck.spellcheck;
+		$scope.$watch('buttonText', function(val){
+			console.log("newvalue:" + val)
+		});
+		$scope.$watch('spellcheck', function(val){
+			console.log("controller spellcheck new:" + val);
+		});
+	}])
+	.directive('makeEditable', ['spellcheck' , function(spellcheck){
 		return {
 			templateUrl: 'edit.html',
 			restrict: 'E',
 			transclude: true,
-			scope: true,
+			scope: false,
 			link: function(scope, element, attrs){
-				this.editingStatus = false;
-        this.buttonText = 'edit!';
-        console.log("editbox should say 'edit'")
+				scope.editingStatus = false;
+        scope.buttonText = 'edit!';
         scope.toggleEdit = function(){
-          if(this.editingStatus == false){
-            this.editingStatus = true;
-            this.buttonText = 'save!';
-            element.spellcheck = true;
+          if(scope.editingStatus == false){
+            scope.editingStatus = true;
+            scope.buttonText = 'save!';
+            spellcheck.toggleSpellcheck();
+            scope.spellcheck=spellcheck.spellcheck;
+            console.log("directive spellcheck:" + spellcheck.spellcheck);
+
           } else {
-            this.editingStatus = false;
-            this.buttonText = 'edit!';
-            element.spellcheck = false;
+            scope.editingStatus = false;
+            scope.buttonText = 'edit!';
+            spellcheck.toggleSpellcheck();
+            scope.spellcheck=spellcheck.spellcheck;
           }
 				}
 			}
 		}
-	})
+	}])
 	
 	
 
